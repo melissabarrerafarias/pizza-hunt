@@ -4,6 +4,12 @@ const pizzaController = {
     // get all pizzas
     getAllPizza(req, res) { // will serve as a callback function for the GET /api/pizzas
         Pizza.find({}) // mongoose find() method
+            .populate({
+                path: 'comments',
+                select: '-__v'
+            })
+            .select('-__v') // excludes the __v fields in response
+            .sort({ _id: -1 }) // sorts in DESC order 
             .then(dbPizzaData => res.json(dbPizzaData))
             .catch(err => {
                 console.log(err);
@@ -14,6 +20,11 @@ const pizzaController = {
     // get one pizza by id
     getPizzaById({ params }, res) { // destructured params out of req (only data needed)
         Pizza.findOne({ _id: params.id }) // mongoose findOne() method
+            .populate({
+                path: 'comments',
+                select: '-__v'
+            })
+            .select('-__v')
             .then(dbPizzaData => {
                 // If no pizza is found, send 404
                 if (!dbPizzaData) {

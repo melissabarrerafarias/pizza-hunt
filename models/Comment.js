@@ -8,7 +8,7 @@ const CommentSchema = new Schema({
         type: String
     }, 
     createdAt: {
-        type: DataCue, 
+        type: Date, 
         default: Date.now
     }
 }); 
