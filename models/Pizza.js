@@ -3,10 +3,14 @@ const dateFormat = require('../utils/dateFormat');
 
 const PizzaSchema = new Schema({ // schema constructor from mongoose 
   pizzaName: {
-    type: String // adheres to the built in JavaScript data types
+    type: String, // adheres to the built in JavaScript data types
+    required: true, // requires field (similar to sequelize 'allowNull: false');
+    trim: true // works same as JavaScript trim() 
   },
   createdBy: {
-    type: String
+    type: String, 
+    required: true, 
+    trim: true
   },
   createdAt: {
     type: Date,
@@ -15,6 +19,8 @@ const PizzaSchema = new Schema({ // schema constructor from mongoose
   },
   size: {
     type: String,
+    require: true,
+    enum: ['Personal', 'Small', 'Medium', 'Large', 'Extra Large'],// stands for enumerable (refers to data that can be iterated over)
     default: 'Large'
   },
   toppings: [],  // indicates array as data type
